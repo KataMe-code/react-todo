@@ -10,7 +10,8 @@ export const App = () => {
     const [completeTodos, setCompleteTodos] = useState([]);
     const onChangeTodoText = (event) => {
         setTodoText(event.target.value);
-    }
+    };
+
 
     const onClickAdd = () => {
         // alert(todoText);
@@ -47,12 +48,22 @@ export const App = () => {
         setIncompleteTodos(newInCompleteTodo);
     }
 
+    const completeDelete = (index) =>{
+        const newCompleteTodos = [...completeTodos];
+        newCompleteTodos.splice(index, 1);
+
+        setCompleteTodos(newCompleteTodos)
+
+
+    }
+
+
     // コンポーネント(HTML)
     return <>
-        <InputTodo todoText={todoText} onChange={onChangeTodoText} onClickAdd={onClickAdd} disabled = {incompleteTodos.length >= 5} />
-        {incompleteTodos.length >= 5 && <p style={{ color: 'red' }}>登録できるTODOは５個までです。</p>}
+            <InputTodo todoText={todoText} onChange={onChangeTodoText} onClickAdd={onClickAdd} disabled = {incompleteTodos.length >= 5} />
+            {incompleteTodos.length >= 5 && <p style={{ color: 'red' }}>登録できるTODOは５個までです。</p>}
+            <IncompleteTodos todos={incompleteTodos} onClickComplete={onClickComplete} onClickDelete={onClickDelete} />
+            <ComplteTodos todos={completeTodos} onClickBack={onClickBack} completeDelete={completeDelete} />
 
-        <IncompleteTodos todos={incompleteTodos} onClickComplete={onClickComplete} onClickDelete={onClickDelete} />
-        <ComplteTodos todos={completeTodos} onClickBack={onClickBack} />
-    </>
+        </>
 }

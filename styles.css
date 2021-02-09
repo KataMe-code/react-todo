@@ -1,6 +1,12 @@
 body{
     font-family: sans-serif;
+    /* display: grid;
+    grid-template:
+        "input-area "
+        "incomplete-area"
+        "complete-are "; */
 }
+
 input {
     border-radius: 16px;
     border: none;
@@ -63,3 +69,5 @@ li {
     padding-bottom: 4px;
 
 }
+
+
