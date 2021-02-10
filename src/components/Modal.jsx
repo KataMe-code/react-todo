@@ -1,41 +1,42 @@
-import React,{memo} from 'react';
+import React, { memo } from 'react';
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import { Button } from '@material-ui/core';
 
 const Modal = (props) => {
     const { show, setShow, todos, completeDelete, index } = props;
     // console.log("modal re-render");
     // 削除確認対象タスク名
     const todoText = todos[index];
-
-    const overlayStyle = {
-        position: 'fixed',
-        top: '0',
-        left: '0',
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'rgba(0,0,0,0.5)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+    const handleClose = () => {
+        setShow(false)
     }
 
-    const contentStyle = {
-        zIndex: '2',
-        width: '50%',
-        padding: '1em',
-        background: '#fff'
-    }
     if (show) {
         return (
-            <div style={overlayStyle} onClick={()=> setShow(false)}>
-                <div style={contentStyle} onClick={(e) => e.stopPropagation()}>
-                    <p>{`${todoText} を完了TODOから本当に削除してよろしいでしょうか?`}</p>
-                    <button onClick={()=> {
+            <Dialog
+                open={show}
+                onClose={handleClose}
+                aria-labelledby="dialog-title"
+                aria-describedby="dialog-description"
+            >
+                <DialogTitle id="dialog-title">{"完了TODO削除"}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="dialog-description">
+                        {`${todoText} を完了TODOから本当に削除してよろしいでしょうか?`}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => {
                         completeDelete(index);
                         setShow(false);
-                    }}>削除</button>
-                    <p><button onClick={() => setShow(false)}>close</button></p>
-                </div>
-            </div>
+                    }} variant="contained" color="secondary">Delete</Button>
+                    <Button onClick={handleClose} variant="contained" color="default">Cancel</Button>
+                </DialogActions>
+            </Dialog>
         )
     } else {
         return null;
