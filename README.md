@@ -1,4 +1,4 @@
 # react-todo
 
-start `npm run start`
+please start `npm run start`
 
